@@ -1,5 +1,7 @@
 const express = require("express");
-const cors = require("cors")
+const cors = require("cors");
+const logRoute = require("./logRoute");
+const drivers = require("./drivers");
 
 //Create app using express
 
@@ -10,5 +12,25 @@ const app = express();
 
 app.use(cors()); // cors allows the app to communicate with external requests i.e POST
 app.use(express.json()) // allows you to read the body of POST requests 
+app.use(logRoute);
+
+//Base root - gets information when you go onto page. This sets up different requests that the user may search 
+app.get("/", (req , res) => {
+    res.send("Welcome to the Mario Kart database")
+})
+// This setups request to send driver information 
+app.get("/drivers", (req , res) => {
+    res.send(drivers)
+})
+
+app.get("/drivers/:id", (req , res) => {
+
+    try {
+        const id = req.params.id
+
+    } catch{}    
+})
+
+
 
 module.exports = app
