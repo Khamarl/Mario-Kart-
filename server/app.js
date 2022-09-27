@@ -26,9 +26,20 @@ app.get("/drivers", (req , res) => {
 app.get("/drivers/:id", (req , res) => {
 
     try {
-        const id = req.params.id
+        const id = parseInt(req.params.id) // converts string id into a number 
+        if(!id && id !== 0) {
+            throw "Invalid input"
+        } else if(id < 0 || id >= drivers.length) {
+            throw "No driver information"
+        }
+        // filter through drivers array and sends their id
+        
+        const filtered = drivers.filter((driver) => driver.id == req.params.id )
+            res.send(filtered[0])
 
-    } catch{}    
+    } catch (e) {
+        res.status(401).send({error: e})
+    }    
 })
 
 
